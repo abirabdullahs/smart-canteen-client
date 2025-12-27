@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 
 const Home = () => {
     const [scrollY, setScrollY] = useState(0);
-    const [activeTab, setActiveTab] = useState('all');
     const [featuredDishes, setFeaturedDishes] = useState([]);
     const navigate = useNavigate();
 
@@ -18,7 +17,6 @@ const Home = () => {
 
 
 
-    const menuCategories = ['all', 'breakfast', 'lunch', 'dinner', 'snacks'];
 
     useEffect(() => {
         async function loadData() {
@@ -192,21 +190,6 @@ const Home = () => {
                         <p className="text-xl text-gray-400">Handpicked dishes crafted by our chefs</p>
                     </div>
 
-                    {/* Category Tabs */}
-                    <div className="flex flex-wrap justify-center gap-4 mb-12">
-                        {menuCategories.map((category) => (
-                            <button
-                                key={category}
-                                onClick={() => setActiveTab(category)}
-                                className={`px-6 py-3 font-bold uppercase tracking-wider transition-all ${activeTab === category
-                                    ? 'bg-orange-600 text-white shadow-lg shadow-orange-500/50'
-                                    : 'bg-white/5 text-gray-400 hover:bg-white/10'
-                                    }`}
-                            >
-                                {category}
-                            </button>
-                        ))}
-                    </div>
 
                     {/* Dishes Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
