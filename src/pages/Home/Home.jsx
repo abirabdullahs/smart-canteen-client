@@ -231,9 +231,7 @@ const Home = () => {
                                     <h3 className="text-2xl font-bold mb-2">{dish.name}</h3>
                                     <div className="flex items-center justify-between">
                                         <span className="text-3xl font-black text-orange-500">{dish.price}</span>
-                                        <button className="bg-orange-600 p-3 hover:bg-orange-500 transition-colors group-hover:scale-110 transform">
-                                            <ShoppingCart className="w-5 h-5" />
-                                        </button>
+                                        
                                     </div>
                                 </div>
 

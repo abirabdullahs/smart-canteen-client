@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { ChefHat, Clock, Sparkles, TrendingUp, Award, Users, Zap, Heart, ArrowRight, Star, Utensils, ShoppingCart, DollarSign, Leaf, Calendar, Filter, SlidersHorizontal, Search, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../../config/firebase.config';
 import useCartStore from '../../store/cartStore';
 import toast from 'react-hot-toast';
 
@@ -281,7 +282,13 @@ const AllFood = () => {
                                             </span>
                                         </div>
                                         <button 
-                                            onClick={() => {
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                if (!auth.currentUser) {
+                                                    toast.error('Please login to add items to cart');
+                                                    navigate('/login');
+                                                    return;
+                                                }
                                                 addToCart(dish);
                                                 toast.success(`${dish.name} added to cart!`);
                                             }}

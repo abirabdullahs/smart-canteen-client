@@ -4,7 +4,7 @@ import { auth } from '../../config/firebase.config';
 import { signOut } from 'firebase/auth';
 import toast from 'react-hot-toast';
 
-const Navbar = ({ isLoggedIn, isAdmin, cartCount, balance, canteenOpen, user }) => {
+const Navbar = ({ isLoggedIn, isAdmin, cartCount, canteenOpen, user }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -73,11 +73,7 @@ const Navbar = ({ isLoggedIn, isAdmin, cartCount, balance, canteenOpen, user }) 
 
                         {isLoggedIn ? (
                             <div className="flex items-center gap-4">
-                                {/* Balance Badge */}
-                                <div className="text-right">
-                                    <p className="text-[10px] uppercase text-gray-500 font-bold leading-none">Balance</p>
-                                    <p className="text-sm font-bold text-gray-800">৳ {balance}</p>
-                                </div>
+                                
 
                                 {/* Cart */}
                                 <Link to="/cart" className="relative p-2 text-gray-600 hover:bg-orange-50 rounded-full transition-all">
@@ -140,10 +136,6 @@ const Navbar = ({ isLoggedIn, isAdmin, cartCount, balance, canteenOpen, user }) 
                         <div className="pt-4 border-t border-gray-100">
                             {isLoggedIn ? (
                                 <>
-                                    <div className="flex justify-between items-center mb-4">
-                                        <span className="text-gray-500">Wallet Balance</span>
-                                        <span className="font-bold text-orange-600 text-xl">৳ {balance}</span>
-                                    </div>
                                     <Link to="/profile" className="w-full bg-orange-500 text-white py-3 rounded-xl font-bold block text-center hover:bg-orange-600 transition-all mb-3">
                                         👤 View Profile
                                     </Link>

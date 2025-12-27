@@ -4,7 +4,7 @@ import Footer from './../components/Footer/Footer';
 import { auth, db } from './../config/firebase.config';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { doc, onSnapshot } from 'firebase/firestore';
+
 import useCartStore from '../store/cartStore';
 
 const Root = () => {
