@@ -26,7 +26,7 @@ const Navbar = ({ isLoggedIn, isAdmin, cartCount, balance, canteenOpen, user }) 
 
     return (
         <nav className="sticky top-0 z-50 w-full border-b border-white/20 bg-white/70 backdrop-blur-md transition-all duration-300 shadow-md">
-            <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
 
                     {/* Logo Section */}
