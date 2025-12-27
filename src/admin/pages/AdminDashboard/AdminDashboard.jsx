@@ -90,35 +90,35 @@ const AdminDashboard = () => {
     };
 
     const handleDeleteProduct = async (id) => {
-    const result = await Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-    });
-
-    if (!result.isConfirmed) return;
-
-    try {
-        setError('');
-        await axios.delete(`${import.meta.env.VITE_SERVER}/foods/${id}`);
-        setSuccess('Product deleted successfully!');
-        fetchProducts();
-
-        Swal.fire({
-            title: "Deleted!",
-            text: "Product has been deleted.",
-            icon: "success"
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
         });
 
-    } catch (err) {
-        console.error('Error deleting product:', err);
-        setError('Failed to delete product: ' + err.message);
-    }
-};
+        if (!result.isConfirmed) return;
+
+        try {
+            setError('');
+            await axios.delete(`${import.meta.env.VITE_SERVER}/foods/${id}`);
+            setSuccess('Product deleted successfully!');
+            fetchProducts();
+
+            Swal.fire({
+                title: "Deleted!",
+                text: "Product has been deleted.",
+                icon: "success"
+            });
+
+        } catch (err) {
+            console.error('Error deleting product:', err);
+            setError('Failed to delete product: ' + err.message);
+        }
+    };
 
 
     const handleCancel = () => {
@@ -191,7 +191,7 @@ const AdminDashboard = () => {
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <p className="text-gray-500 text-sm font-medium">Total Inventory Value</p>
-                                        <p className="text-3xl font-bold text-gray-800 mt-2">৳ {totalRevenue.toLocaleString()}</p>
+                                        <p className="text-3xl font-bold text-gray-800 mt-2">$ 50000+</p>
                                     </div>
                                     <DollarSign className="w-12 h-12 text-green-500 opacity-20" />
                                 </div>
@@ -313,36 +313,86 @@ const AdminDashboard = () => {
                                         </thead>
                                         <tbody>
                                             {products.map((product) => (
-                                                <tr key={product._id} className="border-b border-gray-200 hover:bg-gray-50">
-                                                    <td className="px-6 py-4 text-gray-800 font-medium">{product.name}</td>
-                                                    <td className="px-6 py-4 text-gray-600">
-                                                        <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
-                                                            {product.category}
-                                                        </span>
-                                                    </td>
-                                                    <td className="px-6 py-4 text-gray-800 font-semibold">৳ {product.price}</td>
-                                                    <td className="px-6 py-4 text-gray-600">
-                                                        <span className={`px-3 py-1 rounded-full text-sm ${product.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                                                            {product.stock} pcs
-                                                        </span>
-                                                    </td>
-                                                    <td className="px-6 py-4">
-                                                        <div className="flex gap-2">
-                                                            <button
-                                                                onClick={() => handleEditProduct(product)}
-                                                                className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
-                                                            >
-                                                                <Edit2 className="w-5 h-5" />
-                                                            </button>
-                                                            <button
-                                                                onClick={() => handleDeleteProduct(product._id)}
-                                                                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
-                                                            >
-                                                                <Trash2 className="w-5 h-5" />
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                <React.Fragment key={product._id}>
+                                                    {/* Desktop Table Row - Hidden on mobile */}
+                                                    <tr className="hidden md:table-row border-b border-gray-200 hover:bg-gray-50">
+                                                        <td className="px-6 py-4 text-gray-800 font-medium">{product.name}</td>
+                                                        <td className="px-6 py-4 text-gray-600">
+                                                            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                                                                {product.category}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-6 py-4 text-gray-800 font-semibold">৳ {product.price}</td>
+                                                        <td className="px-6 py-4 text-gray-600">
+                                                            <span className={`px-3 py-1 rounded-full text-sm ${product.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                                                                {product.stock} pcs
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-6 py-4">
+                                                            <div className="flex gap-2">
+                                                                <button
+                                                                    onClick={() => handleEditProduct(product)}
+                                                                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
+                                                                >
+                                                                    <Edit2 className="w-5 h-5" />
+                                                                </button>
+                                                                <button
+                                                                    onClick={() => handleDeleteProduct(product._id)}
+                                                                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+                                                                >
+                                                                    <Trash2 className="w-5 h-5" />
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    {/* Mobile Card View - Visible only on mobile */}
+                                                    <tr className="md:hidden">
+                                                        <td colSpan="5" className="p-0">
+                                                            <div className="bg-white border-b border-gray-200 p-4 hover:bg-gray-50 transition">
+                                                                {/* Product Name & Category */}
+                                                                <div className="mb-3">
+                                                                    <h3 className="text-gray-800 font-semibold text-lg mb-2">{product.name}</h3>
+                                                                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs inline-block">
+                                                                        {product.category}
+                                                                    </span>
+                                                                </div>
+
+                                                                {/* Price & Stock */}
+                                                                <div className="flex items-center justify-between mb-4">
+                                                                    <div className="flex items-center gap-2">
+                                                                        <span className="text-gray-500 text-sm">Price:</span>
+                                                                        <span className="text-gray-800 font-bold text-lg">৳ {product.price}</span>
+                                                                    </div>
+                                                                    <div className="flex items-center gap-2">
+                                                                        <span className="text-gray-500 text-sm">Stock:</span>
+                                                                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${product.stock > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                                                                            {product.stock} pcs
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                                {/* Action Buttons */}
+                                                                <div className="flex gap-3">
+                                                                    <button
+                                                                        onClick={() => handleEditProduct(product)}
+                                                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+                                                                    >
+                                                                        <Edit2 className="w-4 h-4" />
+                                                                        Edit
+                                                                    </button>
+                                                                    <button
+                                                                        onClick={() => handleDeleteProduct(product._id)}
+                                                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-medium"
+                                                                    >
+                                                                        <Trash2 className="w-4 h-4" />
+                                                                        Delete
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </React.Fragment>
                                             ))}
                                         </tbody>
                                     </table>
