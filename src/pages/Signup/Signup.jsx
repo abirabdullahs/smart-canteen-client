@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, updateProfile } from 'firebase/auth';
-import { Eye, EyeOff, Mail, Lock, User, Chrome, CheckCircle, XCircle } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, CheckCircle, XCircle, Utensils, Clock, Star, ShoppingBag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from './../../config/firebase.config';
 
@@ -64,7 +64,6 @@ const Signup = () => {
                 displayName: formData.name
             });
 
-            // No Firestore persistence: rely on Firebase Auth only
             navigate('/');
         } catch (err) {
             if (err.code === 'auth/email-already-in-use') {
@@ -89,7 +88,6 @@ const Signup = () => {
             const userCredential = await signInWithPopup(auth, provider);
             const user = userCredential.user;
 
-            // No Firestore persistence for Google signups
             navigate('/');
         } catch (err) {
             setError('Google signup failed. Please try again.');
@@ -112,198 +110,306 @@ const Signup = () => {
     const passwordsMatch = formData.password && formData.confirmPassword && formData.password === formData.confirmPassword;
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 flex items-center justify-center p-4 py-12">
-            <div className="w-full max-w-md">
-                {/* Logo/Header Section */}
-                <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl mb-4 shadow-lg">
-                        <span className="text-4xl">🍽️</span>
-                    </div>
-                    <h1 className="text-3xl font-bold text-gray-800 mb-2">Smart Canteen</h1>
-                    <p className="text-gray-600">Create your account to get started</p>
-                </div>
-
-                {/* Signup Card */}
-                <div className="bg-white rounded-2xl shadow-xl p-8">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-6">Sign Up</h2>
-
-                    {error && (
-                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 flex items-start gap-2">
-                            <XCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                            <span>{error}</span>
-                        </div>
-                    )}
-
-                    <form onSubmit={handleEmailSignup} className="space-y-5">
-                        {/* Name Input */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Full Name
-                            </label>
-                            <div className="relative">
-                                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
-                                    placeholder="Enter your full name"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        {/* Email Input */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Email Address
-                            </label>
-                            <div className="relative">
-                                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
-                                    placeholder="Enter your email"
-                                    required
-                                />
-                            </div>
-                        </div>
-
-                        {/* Password Input */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Password
-                            </label>
-                            <div className="relative">
-                                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                <input
-                                    type={showPassword ? 'text' : 'password'}
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    className="w-full pl-11 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
-                                    placeholder="Create a password"
-                                    required
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition"
-                                >
-                                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                                </button>
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 flex items-center justify-center p-4 lg:p-8">
+            <div className="w-full max-w-6xl">
+                <div className="grid lg:grid-cols-2 gap-8 items-center">
+                    {/* Left Side - Branding & Features */}
+                    <div className="hidden lg:block bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 rounded-3xl p-12 shadow-2xl relative overflow-hidden">
+                        {/* Decorative Background Elements */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
+                        <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
+                        
+                        <div className="relative z-10">
+                            {/* Logo Section */}
+                            <div className="mb-12">
+                                <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-2xl mb-6 shadow-lg">
+                                    <span className="text-4xl">🍽️</span>
+                                </div>
+                                <h1 className="text-5xl font-bold text-white mb-4">
+                                    Smart Canteen
+                                </h1>
+                                <p className="text-orange-100 text-lg">
+                                    Your favorite meals, just a tap away!
+                                </p>
                             </div>
 
-                            {/* Password Strength Indicator */}
-                            {passwordStrength && (
-                                <div className="mt-2">
-                                    <div className="flex items-center justify-between mb-1">
-                                        <span className="text-xs text-gray-600">Password Strength:</span>
-                                        <span className={`text-xs font-medium ${passwordStrength.text === 'Weak' ? 'text-red-600' :
-                                                passwordStrength.text === 'Medium' ? 'text-yellow-600' :
-                                                    'text-green-600'
-                                            }`}>
-                                            {passwordStrength.text}
-                                        </span>
+                            {/* Features List */}
+                            <div className="space-y-6 mb-12">
+                                <div className="flex items-start gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <Utensils className="w-6 h-6 text-orange-600" />
                                     </div>
-                                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                                        <div className={`h-full ${passwordStrength.color} ${passwordStrength.width} transition-all duration-300`}></div>
+                                    <div>
+                                        <h3 className="text-white font-bold text-lg mb-1">Delicious Variety</h3>
+                                        <p className="text-orange-100 text-sm">Browse hundreds of meals from breakfast to dinner</p>
                                     </div>
                                 </div>
-                            )}
-                        </div>
 
-                        {/* Confirm Password Input */}
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Confirm Password
-                            </label>
-                            <div className="relative">
-                                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                <input
-                                    type={showConfirmPassword ? 'text' : 'password'}
-                                    name="confirmPassword"
-                                    value={formData.confirmPassword}
-                                    onChange={handleChange}
-                                    className="w-full pl-11 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition"
-                                    placeholder="Confirm your password"
-                                    required
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition"
-                                >
-                                    {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                                </button>
+                                <div className="flex items-start gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <Clock className="w-6 h-6 text-orange-600" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-white font-bold text-lg mb-1">Quick Service</h3>
+                                        <p className="text-orange-100 text-sm">Pre-order and skip the queue, save your time!</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <Star className="w-6 h-6 text-orange-600" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-white font-bold text-lg mb-1">Special Offers</h3>
+                                        <p className="text-orange-100 text-sm">Get exclusive deals and discounts daily</p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-start gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                        <ShoppingBag className="w-6 h-6 text-orange-600" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-white font-bold text-lg mb-1">Easy Ordering</h3>
+                                        <p className="text-orange-100 text-sm">Simple checkout and multiple payment options</p>
+                                    </div>
+                                </div>
                             </div>
 
-                            {/* Password Match Indicator */}
-                            {formData.confirmPassword && (
-                                <div className={`mt-2 flex items-center gap-2 text-sm ${passwordsMatch ? 'text-green-600' : 'text-red-600'
-                                    }`}>
-                                    {passwordsMatch ? (
-                                        <>
-                                            <CheckCircle className="w-4 h-4" />
-                                            <span>Passwords match</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <XCircle className="w-4 h-4" />
-                                            <span>Passwords do not match</span>
-                                        </>
-                                    )}
+                            {/* Food Emojis */}
+                            <div className="flex justify-center gap-6 text-6xl">
+                                <span className="animate-bounce" style={{animationDuration: '2s'}}>🍕</span>
+                                <span className="animate-bounce" style={{animationDuration: '2.3s', animationDelay: '0.2s'}}>🍔</span>
+                                <span className="animate-bounce" style={{animationDuration: '2.6s', animationDelay: '0.4s'}}>🍜</span>
+                                <span className="animate-bounce" style={{animationDuration: '2.9s', animationDelay: '0.6s'}}>🥗</span>
+                            </div>
+
+                            {/* Stats */}
+                            <div className="grid grid-cols-3 gap-4 mt-12 pt-8 border-t border-white/20">
+                                <div className="text-center">
+                                    <div className="text-3xl font-bold text-white mb-1">500+</div>
+                                    <div className="text-orange-100 text-sm">Menu Items</div>
                                 </div>
-                            )}
+                                <div className="text-center">
+                                    <div className="text-3xl font-bold text-white mb-1">10K+</div>
+                                    <div className="text-orange-100 text-sm">Happy Users</div>
+                                </div>
+                                <div className="text-center">
+                                    <div className="text-3xl font-bold text-white mb-1">4.8★</div>
+                                    <div className="text-orange-100 text-sm">Avg Rating</div>
+                                </div>
+                            </div>
                         </div>
-
-                        {/* Sign Up Button */}
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="w-full bg-linear-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed mt-6"
-                        >
-                            {loading ? 'Creating Account...' : 'Sign Up'}
-                        </button>
-                    </form>
-
-                    {/* Divider */}
-                    <div className="flex items-center my-6">
-                        <div className="flex-1 border-t border-gray-300"></div>
-                        <span className="px-4 text-sm text-gray-500">OR</span>
-                        <div className="flex-1 border-t border-gray-300"></div>
                     </div>
 
-                    {/* Google Signup */}
-                    <button
-                        onClick={handleGoogleSignup}
-                        disabled={loading}
-                        className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 transition shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                        <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>
-                        Login with Google
-                    </button>
+                    {/* Right Side - Signup Form */}
+                    <div className="w-full max-w-md mx-auto">
+                        {/* Mobile Logo */}
+                        <div className="text-center mb-8 lg:hidden">
+                            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl mb-4 shadow-lg">
+                                <span className="text-4xl">🍽️</span>
+                            </div>
+                            <h1 className="text-3xl font-bold text-gray-800 mb-2">Smart Canteen</h1>
+                            <p className="text-gray-600">Create your account to get started</p>
+                        </div>
 
-                    {/* Login Link */}
-                    <p className="text-center mt-6 text-gray-600">
-                        Already have an account?{' '}
-                        <button
-                            onClick={() => navigate('/login')}
-                            className="text-orange-600 hover:text-orange-700 font-semibold"
-                        >
-                            Login
-                        </button>
-                    </p>
+                        {/* Signup Card */}
+                        <div className="bg-white rounded-2xl shadow-2xl p-8 relative overflow-hidden">
+                            {/* Decorative corner elements */}
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-orange-100 to-transparent rounded-bl-full opacity-50"></div>
+                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-red-100 to-transparent rounded-tr-full opacity-50"></div>
+                            
+                            <div className="relative z-10">
+                                <div className="flex items-center gap-2 mb-6">
+                                    <h2 className="text-2xl font-bold text-gray-800">Sign Up</h2>
+                                    <span className="text-2xl">✨</span>
+                                </div>
+
+                                {error && (
+                                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 flex items-start gap-2">
+                                        <XCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                                        <span>{error}</span>
+                                    </div>
+                                )}
+
+                                <form onSubmit={handleEmailSignup} className="space-y-4">
+                                    {/* Name Input */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                                            <User className="w-4 h-4" />
+                                            Full Name
+                                        </label>
+                                        <div className="relative">
+                                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                className="w-full pl-11 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition"
+                                                placeholder="Enter your full name"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Email Input */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                                            <Mail className="w-4 h-4" />
+                                            Email Address
+                                        </label>
+                                        <div className="relative">
+                                            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                className="w-full pl-11 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition"
+                                                placeholder="Enter your email"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Password Input */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                                            <Lock className="w-4 h-4" />
+                                            Password
+                                        </label>
+                                        <div className="relative">
+                                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <input
+                                                type={showPassword ? 'text' : 'password'}
+                                                name="password"
+                                                value={formData.password}
+                                                onChange={handleChange}
+                                                className="w-full pl-11 pr-12 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition"
+                                                placeholder="Create a password"
+                                                required
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition"
+                                            >
+                                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                            </button>
+                                        </div>
+
+                                        {/* Password Strength Indicator */}
+                                        {passwordStrength && (
+                                            <div className="mt-2">
+                                                <div className="flex items-center justify-between mb-1">
+                                                    <span className="text-xs text-gray-600">Password Strength:</span>
+                                                    <span className={`text-xs font-medium ${passwordStrength.text === 'Weak' ? 'text-red-600' :
+                                                            passwordStrength.text === 'Medium' ? 'text-yellow-600' :
+                                                                'text-green-600'
+                                                        }`}>
+                                                        {passwordStrength.text}
+                                                    </span>
+                                                </div>
+                                                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                                                    <div className={`h-full ${passwordStrength.color} ${passwordStrength.width} transition-all duration-300`}></div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Confirm Password Input */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-2">
+                                            <Lock className="w-4 h-4" />
+                                            Confirm Password
+                                        </label>
+                                        <div className="relative">
+                                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <input
+                                                type={showConfirmPassword ? 'text' : 'password'}
+                                                name="confirmPassword"
+                                                value={formData.confirmPassword}
+                                                onChange={handleChange}
+                                                className="w-full pl-11 pr-12 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition"
+                                                placeholder="Confirm your password"
+                                                required
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition"
+                                            >
+                                                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                            </button>
+                                        </div>
+
+                                        {/* Password Match Indicator */}
+                                        {formData.confirmPassword && (
+                                            <div className={`mt-2 flex items-center gap-2 text-sm ${passwordsMatch ? 'text-green-600' : 'text-red-600'
+                                                }`}>
+                                                {passwordsMatch ? (
+                                                    <>
+                                                        <CheckCircle className="w-4 h-4" />
+                                                        <span>Passwords match</span>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <XCircle className="w-4 h-4" />
+                                                        <span>Passwords do not match</span>
+                                                    </>
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Sign Up Button */}
+                                    <button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-semibold hover:from-orange-600 hover:to-red-600 transition shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
+                                    >
+                                        {loading ? '🔄 Creating Account...' : '🚀 Sign Up'}
+                                    </button>
+                                </form>
+
+                                {/* Divider */}
+                                <div className="flex items-center my-5">
+                                    <div className="flex-1 border-t border-gray-300"></div>
+                                    <span className="px-4 text-sm text-gray-500 font-medium">OR</span>
+                                    <div className="flex-1 border-t border-gray-300"></div>
+                                </div>
+
+                                {/* Google Signup */}
+                                <button
+                                    onClick={handleGoogleSignup}
+                                    disabled={loading}
+                                    className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 hover:border-gray-400 transition shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
+                                >
+                                    <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>
+                                    Sign Up with Google
+                                </button>
+
+                                {/* Login Link */}
+                                <p className="text-center mt-5 text-gray-600">
+                                    Already have an account?{' '}
+                                    <button
+                                        onClick={() => navigate('/login')}
+                                        className="text-orange-600 hover:text-orange-700 font-semibold transition"
+                                    >
+                                        Login 🔑
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Footer */}
+                        <p className="text-center mt-6 text-sm text-gray-500 flex items-center justify-center gap-2">
+                            <span>©</span> 2024 Smart Canteen. All rights reserved.
+                            <span>🍽️</span>
+                        </p>
+                    </div>
                 </div>
-
-                {/* Footer */}
-                <p className="text-center mt-6 text-sm text-gray-500">
-                    © 2024 Smart Canteen. All rights reserved.
-                </p>
             </div>
         </div>
     );
