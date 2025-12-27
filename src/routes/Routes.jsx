@@ -13,6 +13,7 @@ import Cart from '../pages/Cart/Cart';
 import FoodDetails from '../pages/FoodDetails/FoodDetails';
 import Checkout from '../pages/Checkout/Checkout';
 import Orders from '../pages/Orders/Orders';
+import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
 
 
 
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
       {
         path: '/orders',
         Component: Orders
+      },
+      {
+        path:'/forgot-password',
+        Component: ForgotPassword
       }
     ]
   },
