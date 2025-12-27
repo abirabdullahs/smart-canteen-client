@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
         Component: Signup
       },
       {
-        path: 'allfoods',
+        path: '/allfoods',
         Component: AllFood
       },
       {

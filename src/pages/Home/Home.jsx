@@ -105,15 +105,21 @@ const Home = () => {
                         </p>
 
                         <div className="flex flex-wrap gap-4 animate-fade-in-delay" style={{ animationDelay: '0.4s' }}>
-                            <button className="group relative px-8 py-4 bg-orange-600 font-bold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/50">
+                            <button
+                                onClick={() => navigate('/allfoods')}
+                                className="group relative px-8 py-4 bg-orange-600 font-bold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/50"
+                            >
                                 <span className="relative z-10 flex items-center gap-2">
                                     ORDER NOW
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                                 </span>
-                                <div className="absolute inset-0 bg-linear-to-r from-orange-500 to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
                             </button>
 
-                            <button className="px-8 py-4 border-2 border-white font-bold text-lg hover:bg-white hover:text-black transition-all">
+                            <button
+                                onClick={() => navigate('/allfoods')}
+                                className="px-8 py-4 border-2 border-white font-bold text-lg hover:bg-white hover:text-black transition-all"
+                            >
                                 VIEW MENU
                             </button>
                         </div>
