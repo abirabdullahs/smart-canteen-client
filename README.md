@@ -1,3 +1,43 @@
+# Smart Canteen — Client
+
+Overview
+--------
+This is the frontend for the Smart Canteen web app built with React + Vite. It provides the UI used by customers and admins to browse food, manage cart and checkout.
+
+Live site
+---------
+https://smart-canteen-3628c.firebaseapp.com/
+
+Quick start
+-----------
+Prerequisites:
+- Node.js (14+)
+- npm or yarn
+
+Install and run locally:
+
+```bash
+cd "F:\web projects\smart-centeen\smart-canteen-client"
+npm install
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+npm run preview
+```
+
+Configuration
+-------------
+- Firebase config is in [smart-canteen-client/src/config/firebase.config.js](smart-canteen-client/src/config/firebase.config.js#L1). Update the Firebase keys there for local development or use environment variables if preferred.
+- If Stripe or other keys are required, check `package.json` and components under `src/components/StripeProvider`.
+
+Notes
+-----
+- Uses Vite dev server on default port (usually 5173). If that port is busy, set `PORT` when running the dev server.
+- If you see errors about missing env values, ensure required keys are present in the Firebase config or environment.
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
